@@ -1,0 +1,54 @@
+Build a full-stack user access management system with the following specifications:
+
+📌 Tech Stack:
+- Backend: Node.js with Express.js
+- Frontend: React.js
+- ORM: TypeORM
+- Database: PostgreSQL
+- Authentication: JWT
+- Tooling: bcrypt, dotenv, nodemon
+
+✅ Functional Requirements:
+1. User registration and login with secure password hashing using bcrypt.
+2. JWT-based authentication with role-based access: Employee, Manager, Admin.
+3. Software creation by Admin.
+4. Employees can request access to software with access type (Read, Write, Admin) and reason.
+5. Managers can approve or reject access requests.
+6. Role-based redirection after login (Employee → Request Access, Manager → Pending Requests, Admin → Create Software).
+
+🧱 Backend Structure:
+- Use Express.js
+- Use TypeORM for PostgreSQL models:
+  - **User**: id, username, password, role ('Employee' | 'Manager' | 'Admin')
+  - **Software**: id, name, description, accessLevels (array)
+  - **Request**: id, user, software, accessType, reason, status ('Pending' | 'Approved' | 'Rejected')
+- Endpoints:
+  - `POST /api/auth/signup`: User registration (default role = Employee)
+  - `POST /api/auth/login`: Login, returns JWT and role
+  - `POST /api/software`: Admin creates software
+  - `POST /api/requests`: Employee submits access request
+  - `PATCH /api/requests/:id`: Manager approves or rejects
+
+🖥️ Frontend Structure (React):
+- `/signup` page: Sign-up form
+- `/login` page: Login form
+- `/create-software` page (Admin): Form to create software (name, description, accessLevels)
+- `/request-access` page (Employee): Request form (software, access type, reason)
+- `/pending-requests` page (Manager): List with approval/rejection controls
+
+🔐 Security:
+- Use JWT tokens for authentication
+- Hash passwords with bcrypt
+- Protect routes with role-based middleware
+
+📦 Other requirements:
+- Include `.env` support for DB connection and JWT secret
+- Use `nodemon` for backend auto-reload
+- Include PostgreSQL setup/migrations via TypeORM
+- Provide a README with setup and API usage instructions
+
+🎯 Deliverables:
+- Full working backend and frontend with all features
+- Clean folder structure, reusable React components
+- TypeORM migrations and schema
+- README with full instructions
